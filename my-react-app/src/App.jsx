@@ -13,7 +13,7 @@ function App() {
    <Routes>
    <Route path="/" element={<Navigate to = "/auth" replace  />} />
    <Route path="/auth" element={<Auth/>} />
-   <Route path="/Login" element={<Login/>} />
+   {/* <Route path="/Login" element={<Login/>} /> */}
    </Routes>
    </BrowserRouter>
    </div>
