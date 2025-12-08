@@ -1,37 +1,66 @@
 import React from 'react'
 import { useState } from 'react'
 
-const Login = (onSwitch) => {
+const Login = ({onSwitch}) => {
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
 
-    const handleSubmit = async () => {
-     
+    const [error,setError] = useState("")
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("")
 
 
+         const payload = { username, password };
 
+        try {
 
+           const response = await fetch('http://127.0.0.1:8000/login', {
+           method: "POST",
+           headers: {
+        'Content-Type': 'application/json',
+      },
+           body: JSON.stringify(payload),
+    });
+        const result = await response.json()
+        console.log(result)
 
-
+        if (!response.ok){
+         const err = await response.json()
+         setError(result.err)
+                        }
+    
+      
+       } catch (err) {
+        setError(err.message)
+  
+      } finally {
+  
+      }
 
     }
   return (
     <div className='box_login'>
 
-    <form>
+    <form onSubmit={handleSubmit}>
         <h2>Se Connecter</h2>
-     <input type="text" name="Nom d'utilisateur" placeholder='username' 
+     <label htmlFor="username">Nom d'utilisateur</label> <br />
+     <input type="text" id="username"  placeholder='username' 
             value={username}
             onChange={(e)=> setUsername(e.target.value)} />
-     <br />
-     <input type="password" name="Mot de pass" placeholder='password'
+
+    <br />
+    
+     <label htmlFor="password">Mot de passe</label> <br />
+     <input type="password" id="password" placeholder='********'
             value={password}
             onChange={(e)=> setPassword(e.target.value)} /><br />
      <button type='submit'>Connection</button>
     </form>
 
     <p>Pas encore de compte ?
-        <span onClick={onSwitch} className="switch-link"> S'inscrire</span>
+        <span onClick={onSwitch} style={{ color: "blue", cursor: "pointer" }}> S'inscrire</span>
     </p>
 
 
