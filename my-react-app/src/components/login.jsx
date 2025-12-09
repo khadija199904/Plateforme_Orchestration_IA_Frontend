@@ -41,7 +41,7 @@ const Login = ({onSwitch}) => {
 
     }
   return (
-    <div className='container'>
+    <div className='box-login'>
 
     <form onSubmit={handleSubmit}>
         <h2>Se Connecter</h2>

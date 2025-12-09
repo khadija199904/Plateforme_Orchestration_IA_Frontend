@@ -1,0 +1,108 @@
+/* --- Page principale --- */
+.page {
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #000; /* Fond noir style Matrix */
+  color: #ccc; /* Texte gris */
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Texte et zone de saisie --- */
+.box-text {
+  width: 80%;
+  max-width: 800px;
+  min-height: 150px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid #00ff00;
+  color: #ccc; /* Texte gris */
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  outline: none;
+  resize: none; /* Désactive l'agrandissement */
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.box-text:focus {
+  box-shadow: 0 0 10px #00ff00;
+  border-color: #00ff00;
+}
+
+/* --- Bouton --- */
+button {
+  background-color: transparent;
+  border: 2px solid #00ff00;
+  color: #00ff00;
+  padding: 0.5cm 2cm; 
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  width: 600px; 
+}
+
+button:hover {
+  background-color: #00ff00;
+  color: #000;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Messages d'erreur --- */
+.alert-error {
+  color: #ff4d4d;
+  background-color: rgba(255, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  border: 1px solid #ff4d4d;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+/* --- Résultat de l'analyse --- */
+.result {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #00ff00;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 80%;
+  max-width: 800px;
+  font-family: 'Courier New', monospace;
+  animation: result-fade 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem; /* espace entre lignes */
+}
+
+/* Alignement du texte dans les résultats */
+.result p {
+  margin: 0;
+  color: #ccc; /* texte gris */
+  text-align: left;
+}
+
+/* --- Animations --- */
+@keyframes result-fade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .box-text, .result {
+    width: 95%;
+  }
+  button {
+    width: 50%;
+  }
+}

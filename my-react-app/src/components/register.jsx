@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+
 const Register = ({onSwitch}) => {
     const [email,setEmail] = useState("")
     const [username,setUsername] = useState("")
@@ -42,7 +43,7 @@ const Register = ({onSwitch}) => {
 
 
   return (
-    <div className='container'>
+    <div className='box-register'>
     <h2>Créé votre compte</h2>
     <form  onSubmit={handleSubmit} >
       <div>
