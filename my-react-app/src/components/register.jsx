@@ -5,11 +5,13 @@ const Register = ({onSwitch}) => {
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
 
-    const[isRegister,setIsRegister] = useState(true)
+    const [error,setError] = useState("")
 
-  const handlSubmit = async () => {
-     
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
   const payload = {email,username,password}
+   console.log("Payload envoyé :", payload)
 
   try  {
      const response = await fetch ('http://127.0.0.1:8000/register',{
@@ -17,18 +19,15 @@ const Register = ({onSwitch}) => {
         headers :{'Content-Type': 'application/json',},
         body : JSON.stringify(payload)
      });
-       result = response.json()
+       result = await response.json()
        console.log(result)
 
      if (!response.ok){
-      const err = await response.json(
-        setError(err)
-      )
-     }
-     
-    
+      const err = await response.json()
+      console.log("Erreur backend:", err)
+      }
 
-  } catch (err) {
+  }catch (err) {
         setError(err.message)
   
       } finally {
@@ -43,22 +42,22 @@ const Register = ({onSwitch}) => {
 
 
   return (
-    <div>
+    <div className='container'>
     <h2>Créé votre compte</h2>
-    <form  onSubmit={handlSubmit} >
+    <form  onSubmit={handleSubmit} >
       <div>
        <input type="email" id="email" 
            placeholder='EX:khadija@live.fr'
            value={email}
-           onChange={e => setEmail(e.target.value)}
+           onChange={(e) => setEmail(e.target.value)}
            />
     </div>  
       
     <div>
-     <input type="username" id="username" 
+     <input type="text" id="username" 
            placeholder='username'
            value={username}
-           onChange={e => setUsername(e.target.value)}
+           onChange={(e) => setUsername(e.target.value)}
            />
       </div>
     
@@ -66,7 +65,7 @@ const Register = ({onSwitch}) => {
    <input type="password" id="password" 
            placeholder='*********'
            value={password}
-           onChange={e => setPassword(e.target.value)}
+           onChange={(e) => setPassword(e.target.value)}
            />
     </div>
     
@@ -75,7 +74,7 @@ const Register = ({onSwitch}) => {
     </div>
     <p>
         Déjà un compte ?{" "}
-        <span onClick={onSwitch} style={{ color: "blue", cursor: "pointer" }}>
+        <span className='switch' onClick={onSwitch} style={{ color: "blue", cursor: "pointer" }}>
           Se connecter
         </span>
       </p>

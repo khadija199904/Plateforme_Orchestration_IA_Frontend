@@ -10,7 +10,7 @@ const Login = ({onSwitch}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("")
-
+        
 
          const payload = { username, password };
 
@@ -41,7 +41,7 @@ const Login = ({onSwitch}) => {
 
     }
   return (
-    <div className='box_login'>
+    <div className='container'>
 
     <form onSubmit={handleSubmit}>
         <h2>Se Connecter</h2>
@@ -60,7 +60,7 @@ const Login = ({onSwitch}) => {
     </form>
 
     <p>Pas encore de compte ?
-        <span onClick={onSwitch} style={{ color: "blue", cursor: "pointer" }}> S'inscrire</span>
+        <span className= 'switch' onClick={onSwitch} style={{ color: "blue", cursor: "pointer" }}> S'inscrire</span>
     </p>
 
 

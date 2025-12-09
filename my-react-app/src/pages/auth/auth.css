@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* --- Configuration Globale de la Page --- */
+body {
+  margin: 0;
+  background-color: #0d0d0d;
+  font-family: 'VT323', monospace; /* Police Retro Terminal */
+  overflow: hidden; /* Empêche le scroll pour l'effet immersif */
+}
+/* --- Titre Principal (Header) --- */
+.title-container {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: slideDown 1s ease-out;
+  position: relative;
+  z-index: 20;
+}
+
+.title-container h1 {
+  font-family: 'VT323', monospace;
+  font-size: 3rem;  /* Taille imposante */
+  margin: 0;
+  color: #00ff41;   /* Vert Matrix */
+  text-shadow: 0 0 15px rgba(0, 255, 65, 0.8);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+/* Le mot "Hybrid-Analyzer" en blanc/glitch */
+.title-container .app-name {
+  color: #fff;
+  text-shadow: 0 0 10px #fff, 2px 0 #00ff41;
+}
+
+/* Le sous-titre technique */
+.matrix-title-container .sub-text {
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  color: #004d00; /* Vert très foncé style 'console inactive' */
+  margin-top: 5px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* Animation d'apparition */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Le conteneur principal qui prend tout l'écran */
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle, #111 0%, #000 100%);
+  position: relative;
+  color: #00ff41; /* Vert Matrix */
+}
+
+/* Effet de lignes de scan (vieux moniteur) */
+.matrix-page::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* --- La Boite (Login et Register) --- */
+/* On cible votre classe .box_login et on crée une classe .box_register */
+.box_login, .box_register {
+  position: relative;
+  z-index: 10;
+  background: rgba(0, 20, 0, 0.9);
+  padding: 40px;
+  border: 1px solid #00ff41;
+  box-shadow: 0 0 15px #00ff41, inset 0 0 20px rgba(0, 50, 0, 0.5);
+  width: 350px;
+  text-align: center;
+  animation: hologram 0.5s ease-out;
+}
+
+@keyframes hologram {
+  from { opacity: 0; transform: scaleY(0.1); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+
+/* --- Typographie --- */
+h2 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  text-shadow: 0 0 5px #00ff41;
+  border-bottom: 1px dashed #003b00;
+  padding-bottom: 10px;
+}
+
+label {
+  font-size: 1.2rem;
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+  color: #aaffaa;
+}
+
+/* --- Inputs --- */
+input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #003b00;
+  color: #00ff41;
+  font-family: 'VT323', monospace;
+  font-size: 1.4rem;
+  padding: 5px;
+  margin-bottom: 10px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-bottom: 2px solid #00ff41;
+  background: rgba(0, 255, 65, 0.1);
+}
+
+input::placeholder {
+  color: #003b00;
+  font-style: italic;
+}
+
+/* --- Bouton --- */
+button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 10px;
+  background: black;
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  font-family: 'VT323', monospace;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background: #00ff41;
+  color: black;
+  box-shadow: 0 0 15px #00ff41;
+}
+
+/* --- Textes et Liens --- */
+p {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+span {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+span:hover {
+  text-shadow: 0 0 8px #fff;
+}
+/* --- Signature / Footer --- */
+.matrix-footer {
+  position: absolute;
+  bottom: 20px;       /* Place le texte en bas de l'écran */
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  color: rgba(0, 255, 65, 0.6); /* Vert matrix un peu sombre */
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  z-index: 20;        /* S'assure qu'il est au-dessus du fond */
+  user-select: none;  /* Empêche la sélection du texte (style terminal) */
+}
+
+/* Le nom en surbrillance (Néon) */
+.matrix-footer .dev-name {
+  color: #00ff41;     /* Vert matrix vif */
+  font-weight: bold;
+  text-shadow: 0 0 8px #00ff41; /* Effet de lueur */
+  margin-left: 5px;
+}
+
+/* Le curseur carré qui clignote */
+.matrix-footer .cursor {
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  background-color: #00ff41;
+  vertical-align: bottom;
+  margin-left: 5px;
+  animation: blink 1s step-end infinite;
+}
+
+/* Animation du clignotement */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
