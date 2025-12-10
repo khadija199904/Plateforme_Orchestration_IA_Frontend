@@ -7,10 +7,14 @@ const Register = ({onSwitch}) => {
     const [password,setPassword] = useState("")
 
     const [error,setError] = useState("")
+    const [success, setSuccess] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+     setError("");
+     setSuccess("");
+
+
   const payload = {email,username,password}
    console.log("Payload envoyé :", payload)
 
@@ -20,16 +24,27 @@ const Register = ({onSwitch}) => {
         headers :{'Content-Type': 'application/json',},
         body : JSON.stringify(payload)
      });
-       result = await response.json()
-       console.log(result)
 
-     if (!response.ok){
-      const err = await response.json()
-      console.log("Erreur backend:", err)
+       const result = await response.json()
+       
+
+     if (response.ok){
+         setSuccess("Compte créé avec succès ! Vous pouvez maintenant vous connecter.");
+         console.log("Succès:", result);
+
+
+          setEmail("");
+          setUsername("");
+          setPassword(""); 
+         } else { 
+      
+      setError(err_resp.detail || "Une erreur est survenue lors de l'inscription.")
+      console.log("Erreur backend:", err_resp)
       }
 
   }catch (err) {
         setError(err.message)
+        // setError(err.detail || "Une erreur est survenue lors de l'inscription.");
   
       } finally {
   
@@ -45,6 +60,7 @@ const Register = ({onSwitch}) => {
   return (
     <div className='box-register'>
     <h2>Créé votre compte</h2>
+   
     <form  onSubmit={handleSubmit} >
       <div>
        <input type="email" id="email" 
@@ -82,7 +98,8 @@ const Register = ({onSwitch}) => {
 
     </form>
   
-    
+    {success && <p style={{ color: 'green', fontWeight: 'bold' }}>{success}</p>}
+    {error && <p style={{ color: 'red' }}>{error}</p>}
     
     </div>
   )

@@ -22,6 +22,13 @@ const Analyse = () => {
       
 
     setLoading(true);
+    const token = localStorage.getItem('token'); 
+
+    if (!token) {
+      setError("Non connecté.");
+      setLoading(false);
+      return;
+    }
     
 
 
@@ -31,66 +38,100 @@ const Analyse = () => {
           method : 'POST',
           headers : {
             'Content-Type': 'application/json',
-          //  'token': token 
+           'token': token 
           },
           body :JSON.stringify({"text" : text})
     });
-    const result = await response.json()
-    setAnalysis(result)
-    console.log(result)
+
+
     if (!response.ok){
       const err = await response.json()
       console.log("Erreur backend:", err)
+      throw new Error(JSON.stringify(err.detail) || 'Erreur requête');
+      
       }
-} catch (error) {
+
+      
+    const result = await response.json()
+    setAnalysis(result || "Analysis ok")
+    console.log(result)
+
+        } catch (error) {
      console.error("Détails de l'erreur :", error);
-} finally {
+     setError("Erreur : " + error.message);
+         } finally {
       setLoading(false);
-    }
+          }
+        };
 
-    }
-
+  
 
 
   return (
-    <div className='page'>
-     
-      <div action="analyse">
-        <h2 >Text</h2>
-        <textarea 
-        className = 'box-text'
-        type="text" 
-        placeholder='Entrer votre text ici.....' 
-        value={text}
-        onChange={(e)=> setText(e.target.value)} />
-      </div>
-      <button type="submit" 
-              onClick={handelanalysis} 
-              disabled={loading}
-         >
-        {loading ? 'Analyse en cours...' : 'Analyser le texte'}
-        </button>
+        <div className='analyse-container'>
+            
+            {/* --- PARTIE GAUCHE : INPUT --- */}
+            <div className='left-panel'>
+                <h2>Votre Texte</h2>
+                <textarea
+                    className='text-input'
+                    placeholder='Entrez votre texte ici pour analyse...'
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                />
+                
+                {error && <div className="alert-error">⚠️ {error}</div>}
+                
+                <button 
+                    className='analyze-btn' 
+                    onClick={handelanalysis} 
+                    disabled={loading}
+                >
+                    {loading ? 'Analyse en cours...' : 'Analyser le texte'}
+                </button>
+            </div>
 
-        {error && <div className="alert-error">⚠️ {error}</div>}
+            {/* --- PARTIE DROITE : RÉSULTATS --- */}
+            <div className='right-panel'>
+                <h2>Résultats</h2>
 
-        <div>
-        <span>Resultat de l'analyse :</span>
-        {analysis && !loading && (
-        <div className="result">
-        <p>Catégorie : {analysis.categorie}</p>
-      <p>Score : {analysis.score}</p>
-      <p>Résumé : {analysis.resume}</p>
-      <p>Ton : {analysis.ton}</p>
+                {!analysis && !loading && <div className="placeholder-text">Les résultats s'afficheront ici.</div>}
+                
+                {loading && <div className="loader">Chargement...</div>}
+
+                {analysis && !loading && (
+                    <div className="results-wrapper">
+                        
+                        {/* Zone 1 : Grand Résumé */}
+                        <div className="resume-box">
+                            <h3>Résumé Généré</h3>
+                            <p>{analysis.resume || "Aucun résumé disponible."}</p>
+                        </div>
+
+                        {/* Zone 2 : Les 3 métriques alignées */}
+                        <div className="metrics-row">
+                            
+                            <div className="metric-card category">
+                                <h4>Catégorie</h4>
+                                <span className='value'>{analysis.categorie}</span>
+                            </div>
+
+                            <div className="metric-card score">
+                                <h4>Score</h4>
+                                <span className='value'>{analysis.score}</span>
+                            </div>
+
+                            <div className="metric-card tone">
+                                <h4>Ton</h4>
+                                <span className='value'>{analysis.ton}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
-      )}
-        
-
-
-      </div>
-      
-    
-    </div>
-  )
+    )
 }
 
 export default Analyse

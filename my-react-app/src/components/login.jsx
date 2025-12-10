@@ -1,15 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom' 
 
 const Login = ({onSwitch}) => {
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
 
     const [error,setError] = useState("")
+    const [success, setSuccess] = useState("")
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("")
+        setSuccess("");
         
 
          const payload = { username, password };
@@ -26,10 +31,17 @@ const Login = ({onSwitch}) => {
         const result = await response.json()
         console.log(result)
 
-        if (!response.ok){
-         const err = await response.json()
-         setError(result.err)
-                        }
+        if (response.ok){
+         setSuccess("Connexion réussie ! Redirection...");
+         localStorage.setItem('token', result.access_token);
+         
+          navigate('/analyse'); 
+
+         
+        } else {
+         setError(result.detail || "Identifiants incorrects");
+
+                }
     
       
        } catch (err) {
@@ -45,6 +57,7 @@ const Login = ({onSwitch}) => {
 
     <form onSubmit={handleSubmit}>
         <h2>Se Connecter</h2>
+      
      <label htmlFor="username">Nom d'utilisateur</label> <br />
      <input type="text" id="username"  placeholder='username' 
             value={username}
@@ -63,7 +76,8 @@ const Login = ({onSwitch}) => {
         <span className= 'switch' onClick={onSwitch} style={{ color: "blue", cursor: "pointer" }}> S'inscrire</span>
     </p>
 
-
+    {error && <p style={{color: 'red'}}>{error}</p>}
+    {success && <p style={{color: 'green'}}>{success}</p>}
 
 
     </div>
