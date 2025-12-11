@@ -1,0 +1,251 @@
+/* --- Variables & Reset --- */
+:root {
+  --primary-color: #2563eb;       /* Bleu royal */
+  --secondary-color: #4f46e5;     /* Indigo */
+  --accent-ai: #8b5cf6;           /* Violet IA */
+  --text-dark: #1e293b;           /* Gris très foncé */
+  --text-light: #64748b;          /* Gris moyen */
+  --bg-card: #ffffff;
+  --bg-page: #f1f5f9;
+  --radius: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
+
+/* --- Conteneur Principal (Carte) --- */
+.about-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  max-width: 850px;
+  margin: 40px auto; /* Centré horizontalement */
+  padding: 40px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-dark);
+  border: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Petit effet d'entrée */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Badge Promo (En haut) --- */
+.promo-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #e0e7ff 0%, #fae8ff 100%);
+  color: var(--secondary-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #c7d2fe;
+}
+
+/* --- Header --- */
+.about-header {
+  margin-bottom: 35px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 20px;
+}
+
+.about-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  background: -webkit-linear-gradient(45deg, var(--primary-color), var(--accent-ai));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Effet dégradé sur le texte */
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* --- Sections --- */
+.about-section {
+  margin-bottom: 30px;
+}
+
+.about-section h3 {
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* Petite barre verticale décorative avant les titres h3 */
+.about-section h3::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 20px;
+  background-color: var(--secondary-color);
+  margin-right: 10px;
+  border-radius: 2px;
+}
+
+.about-section p {
+  line-height: 1.7;
+  color: #334155;
+  margin-top: 0;
+}
+
+/* --- Liste des compétences --- */
+.skills-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.skills-list li {
+  background-color: #f8fafc;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 3px solid #cbd5e1;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.skills-list li:hover {
+  background-color: #f1f5f9;
+  border-left-color: var(--primary-color);
+  transform: translateX(5px);
+}
+
+.skills-list strong {
+  color: var(--secondary-color);
+}
+
+/* --- Badges Techniques --- */
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 50px;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+/* Couleurs spécifiques aux badges */
+.badge.react { background-color: #0ea5e9; } /* Bleu ciel */
+.badge.python { background-color: #eab308; color: #333; } /* Jaune/Noir */
+.badge.db { background-color: #336791; } /* Bleu Postgres */
+.badge.ai { background-color: #f59e0b; } /* Orange HF */
+.badge.gemini { background: linear-gradient(90deg, #4285F4, #9B72CB); } /* Gradient Google */
+.badge.docker { background-color: #2563eb; } /* Bleu Docker */
+
+/* --- Footer --- */
+.about-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.signature {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.heart {
+  color: #ef4444;
+  display: inline-block;
+  animation: beat 1.5s infinite;
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Liens boutons */
+.about-links {
+  display: flex;
+  gap: 10px;
+}
+
+.link-btn {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.link-btn.linkedin {
+  background-color: #0077b5;
+  color: white;
+}
+.link-btn.linkedin:hover {
+  background-color: #005582;
+  box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+}
+
+.link-btn.github {
+  background-color: #24292f;
+  color: white;
+}
+.link-btn.github:hover {
+  background-color: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Responsive Mobile --- */
+@media (max-width: 600px) {
+  .about-card {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .about-title {
+    font-size: 1.5rem;
+  }
+
+  .about-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .about-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .link-btn {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box; /* Important pour le padding */
+  }
+}

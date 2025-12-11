@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
+import { FaInfoCircle, FaTimes} from 'react-icons/fa';
 import './analyse.css'
+import LogoutButton from '../../components/LogoutButton';
+import About from '../../components/About';
+
 
 const Analyse = () => {
 
@@ -9,6 +13,8 @@ const Analyse = () => {
 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const [showAbout, setShowAbout] = useState(false);
 
     const handelanalysis = async(e) => {
       e.preventDefault();
@@ -43,20 +49,20 @@ const Analyse = () => {
           body :JSON.stringify({"text" : text})
     });
 
+    const result = await response.json()
+    if (response.ok){
+        setAnalysis(result || "Analysis ok")
+        console.log(result)
+        setError("");
 
-    if (!response.ok){
-      const err = await response.json()
-      console.log("Erreur backend:", err)
-      throw new Error(JSON.stringify(err.detail) || 'Erreur requête');
+    } else{
+      setError(result.detail || "Erreur requête")
+      console.log("Erreur backend:", result.detail)
+      return;
       
       }
 
-      
-    const result = await response.json()
-    setAnalysis(result || "Analysis ok")
-    console.log(result)
-
-        } catch (error) {
+    } catch (error) {
      console.error("Détails de l'erreur :", error);
      setError("Erreur : " + error.message);
          } finally {
@@ -69,6 +75,14 @@ const Analyse = () => {
 
   return (
         <div className='analyse-container'>
+            <div className={`main-view ${showAbout ? 'shifted-up' : ''}`}>
+        
+        {/* Contrôles HAUT DROITE (Bouton Info classique) */}
+        <div className="top-controls-right">
+          <button className="btn-control about-trigger" onClick={() => setShowAbout(true)}>
+             <FaInfoCircle style={{ marginRight: '8px' }} />  À propos
+          </button>
+        </div>
             
             {/* --- PARTIE GAUCHE : INPUT --- */}
             <div className='left-panel'>
@@ -130,6 +144,42 @@ const Analyse = () => {
                     </div>
                 )}
             </div>
+            {showAbout && (
+              <div className="modal-overlay">
+                    <div className="modal-content">
+                        <button  onClick={() => setShowAbout(false)}> ✖</button>
+                         <About />
+                    </div>
+                </div>
+                )}
+            <div className="bottom-logout">
+                  <LogoutButton />
+            </div>
+
+            </div>
+            <div className={`sub-page-container ${showAbout ? 'active' : ''}`}>
+        
+        {/* Bouton X pour fermer (en haut à droite de la sous-page) */}
+        <button className="close-subpage-btn" onClick={() => setShowAbout(false)}>
+          <FaTimes size={20} />
+        </button>
+
+        {/* Le contenu du composant About */}
+        <div className="sub-page-content">
+          <About />
+        </div>
+
+      </div>
+
+
+      
+      <button 
+        className={`floating-cursor ${showAbout ? 'pointing-up' : 'pointing-down'}`} 
+        onClick={toggleView}
+        title={showAbout ? "Retour à l'Analyse" : "Voir À propos"}
+      >
+        {showAbout ? <FaChevronUp size={24} /> : <FaChevronDown size={24} />}
+      </button>
         </div>
     )
 }

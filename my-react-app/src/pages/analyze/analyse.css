@@ -151,3 +151,34 @@
     color: #999;
     margin-top: 50px;
 }
+
+.bottom-logout {
+  position: fixed; /* Reste fixe par rapport à l'écran */
+  bottom: 20px;
+  right: 20px; /* C'est ici que la magie opère */
+  z-index: 100;
+}
+
+.top-controls-right {
+  position: absolute; /* ou 'fixed' si vous voulez qu'il suive le scroll */
+  top: 20px;
+  right: 20px;
+  z-index: 90; /* Juste en dessous de la modale (qui est à 1000) */
+}
+
+.btn-control:hover {
+  background-color: #f8fafc;
+  transform: translateY(-2px); /* Petit effet de soulèvement */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Couleur spécifique pour le bouton À propos (Bleu) */
+.about-trigger {
+  color: #2563eb;
+}
+
+/* Couleur spécifique pour le bouton Déconnexion (Rouge au survol) */
+.logout-trigger:hover {
+  color: #ef4444;
+  background-color: #fef2f2;
+}

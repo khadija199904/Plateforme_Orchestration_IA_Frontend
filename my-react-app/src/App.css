@@ -1,4 +1,4 @@
-/* app.css
+/* /* app.css
    Layout global et petites règles d'override pour éviter conflits avec page-specific CSS.
    (utile pour composants partagés, logo, cards légères)
 */
@@ -8,50 +8,4 @@
   margin: 0 auto;
   padding: 1.5rem;
   text-align: center;
-}
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-
-  background-image: url('./assets/bag.jpg'); /* chemin depuis src */
-  background-size: cover; /* prend toute la page */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed; /* effet paralax */
-  font-family: 'VT323', monospace;
-}
-
-
-/* logo small */
-.logo {
-  height: 4.5em;
-  padding: 0.6em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover { filter: drop-shadow(0 0 1.6em rgba(100,108,255,0.42)); }
-
-/* simple cards used across the app */
-.small-card {
-  background: rgba(0,8,0,0.9);
-  border: 1px solid rgba(0,255,65,0.06);
-  padding: 1rem;
-  border-radius: 8px;
-  text-align: left;
-}
-
-/* generic readable text */
-.p-wide { max-width: 900px; margin: 0 auto; color: rgba(220,220,220,0.9); line-height:1.6; font-size:1rem; }
-
-/* ensure buttons inside app use .btn but don't expand full width */
-.btn { min-width: 120px; }
-
-/* small adjustments to avoid style conflicts */
-form { margin: 0; }
-label { font-size: 0.95rem; color: rgba(180,255,180,0.9); display:block; margin-bottom:6px; }
-
-/* reduce animation for prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
 }
