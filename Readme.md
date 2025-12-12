@@ -1,16 +1,14 @@
 # Hybrid-Analyzer Client (Frontend)
 ![alt text](https://img.shields.io/badge/React-18.x-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-
 ![alt text](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-
 ![alt text](https://img.shields.io/badge/Axios-HTTP-5A29E4?style=for-the-badge)
-
 ![alt text](https://img.shields.io/badge/Docker-Component-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
 ## À propos
 Ce repository contient l'interface utilisateur (Frontend) du projet Hybrid-Analyzer. Développée en React.js, elle offre une interface fluide et responsive permettant aux utilisateurs de s'authentifier et d'interagir avec l'API d'analyse de veille média.
 L'application gère le cycle de vie complet de l'analyse : de la saisie du texte brut à l'affichage des résultats générés par l'IA (Classification Hugging Face + Synthèse Gemini).
 
-## Fonctionnalités de l'application :
+## 1. Fonctionnalités de l'application :
 
 ```mermaid 
 graph LR
@@ -56,14 +54,7 @@ graph LR
     style Work_Flow fill:#fff3e0,stroke:#e65100
 ```
 
-## Stack Technologique
-Framework : React.js (Hooks, JSX)
-Routing : React Router DOM (Navigation /auth, /analyze)
-Client HTTP : Fetch (Intercepteurs pour injecter le Token)
-Styling : CSS Modules / Styled-Components (ou Tailwind selon votre implémentation)
-Build Tool : Webpack / Vite
-
-##  Architecture & Flux
+## 2. Architecture & Flux
 L'application suit une structure basée sur les composants et communique avec l'API via des requêtes asynchrones.
 
 ```mermaid 
@@ -78,20 +69,35 @@ graph LR
     API -->|6. JSON Response| Analyze
     Analyze -->|7. Update State| UI
 ```
-## Installation et Lancement
-1. Prérequis
-  - Node.js (v16+) et npm installés.
+## 3. Stack Technologique
+- Framework : React.js (Hooks, JSX)
+- Routing : React Router DOM (Navigation /auth, /analyze)
+- Client HTTP : Fetch 
+- Styling : CSS Modules 
+- Build Tool :  React ,Vite
+
+## 4. Installation et Lancement :
+### 1. Prérequis
+  - Node.js (v16+) .
   - Le Backend (FastAPI) doit être lancé (par défaut sur http://localhost:8000).
-2.  Lancer le projet avec Docker
+  - Clonez le dépôt
+    ```sh
+      git clone https://github.com/khadija199904/Secure_Translate_Platform_Frontend
+      ```
+  - Installez les dépendances NPM
+    ```sh
+    npm install
+    ```
+### 2.  Lancer le projet avec Docker
  - Ouvrez votre terminal à la racine du projet.
  - Lancez la construction et le démarrage :
  ```bash
  docker-compose up --build
  ```
- 3. Accédez à l'application :
+### 3. Accédez à l'application :
       - Frontend : http://localhost:5173
       - Backend Swagger : http://localhost:8000/docs
- 4. Connexion à la base PostgreSQL dans Docker : 
+### 4. Connexion à la base PostgreSQL dans Docker : 
    - Accéder au container PostgreSQL :
 ```bash
    docker-compose exec db psql -U postgres -d Orchestration_db
@@ -109,17 +115,68 @@ graph LR
    SELECT * FROM public."analysis_logs";
 ```
 
-## Gestion des Erreurs Frontend
+## 5. Gestion des Erreurs Frontend
 L'interface gère les codes erreurs renvoyés par le backend :
+   Code   Signification
+  ------ -----------------------
+  401    Non authentifié
+  422    Texte vide ou invalide
+  500    Erreur interne serveur
+  503    Serveur en surcharge
+
+
+## 6. Structure du projet (Frontend)
+
 ```bash
-| Code | Incident (Cause) | Action / Message |
-|------|------------------|------------------|
-| **401** | Session expirée / non authentifié | Redirection vers `/auth` |
-| **422** | Texte vide ou invalide | Alerte : "Texte invalide" |
-| **500** | Erreur interne serveur | "Service indisponible, réessayez" |
-| **503** | Serveur en surcharge / maintenance | "Service temporairement indisponible" |
+
+Plateforme_Orchestration_IA_Frontend/
+│
+├── docker-compose.yml            # Orchestration des services (Frontend + Backend + BD)
+│
+├── my-react-app/                 #  PARTIE FRONTEND (React + Vite)
+│   ├── node_modules/             # Dépendances (exclues par .gitignore/.dockerignore)
+│   │
+│   ├── src/                      # Code source de l'application
+│   │   ├── App.jsx               # Composant principal + routing
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   ├── main.jsx              # Point d’entrée Vite
+│   │   │
+│   │   ├── components/           # Composants UI réutilisables
+│   │   │   ├── About.jsx         # Pop-up d'information
+│   │   │   ├── About.css
+│   │   │   ├── LogoutButton.jsx  # Gestion de la déconnexion
+│   │   │   ├── login.jsx         # Composant Login
+│   │   │   └── register.jsx      # Composant Register
+│   │   │
+│   │   └── pages/                # Pages complètes
+│   │       ├── analyze/          # Page d’analyse IA
+│   │       │   ├── analyse.jsx
+│   │       │   └── analyse.css
+│   │       │
+│   │       └── auth/             # Pages d’authentification
+│   │           ├── auth.jsx
+│   │           └── auth.css
+│   │
+│   ├── Dockerfile                # Image Docker du frontend
+│   ├── .dockerignore             # Exclusions Docker
+│   ├── index.html
+│   ├── package.json              # Dépendances + scripts npm
+│   ├── package-lock.json
+│   └── vite.config.js            # Configuration Vite
+│
+├── Readme.md                     # Documentation du projet
+└── .gitignore                    # Fichiers ignorés par Git
+
 ```
 
 
+
+## Auteur
+
+**Nom :** KHADIJA ELABBIOUI  
+**Email :** khadija.elabbioui1999@gmail.com  
+**LinkedIn :** [linkedin.com/in/khadija-elabbioui](https://www.linkedin.com/in/khadija-elabbioui-308499216/)  
+**GitHub :** [github.com/ton-github](https://github.com/khadija199904)
 
 

@@ -1,0 +1,40 @@
+{
+  "hash": "5c6f3944",
+  "configHash": "53b6b2a1",
+  "lockfileHash": "d992c53a",
+  "browserHash": "5d8c7b02",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "839c6e4d",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "3ce579d2",
+      "needsInterop": false
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "1eef6806",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "328f8420",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-77NEG2LC": {
+      "file": "chunk-77NEG2LC.js"
+    },
+    "chunk-OGNOTPET": {
+      "file": "chunk-OGNOTPET.js"
+    }
+  }
+}
