@@ -11,47 +11,39 @@ L'application gère le cycle de vie complet de l'analyse : de la saisie du texte
 ## 1. Fonctionnalités de l'application :
 
 ```mermaid 
-graph LR
-    %% --- CONFIGURATION GLOBALE ---
-    User((Utilisateur))
+---
+config:
+  theme: dark
+---
+flowchart LR
+ subgraph Auth_Zone["1. Authentification"]
+    direction TB
+        Login["Login"]
+        Reg["Register"]
+  end
+ subgraph Work_Flow["Flux d'Analyse"]
+    direction LR
+        API["🌐 Traitement"]
+        Input["📝 Input Texte"]
+        Result["📊 Résultats"]
+  end
+ subgraph Dash_Zone["💻 2. Dashboard Client"]
+    direction BT
+        Work_Flow
+        Info@{ label: "ℹ️ Modale 'À Propos'" }
+  end
+    Input -- Fetch API --> API
+    API -- JSON --> Result
+    User(("Utilisateur")) --> Auth_Zone
+    Login --> Input
+    Reg --> Input
+    Input -. Bouton Info .-> Info
 
-    %% --- 1. AUTHENTIFICATION ---
-    subgraph Auth_Zone [1. Authentification]
-        direction TB
-        Login[Login]
-        Reg[Register]
-    end
-
-    %% --- 2. DASHBOARD ---
-    subgraph Dash_Zone [💻 2. Dashboard Client]
-        direction BT
-        %% BT (Bas vers Haut) permet de placer la modale 'À Propos' au-dessus du flux
-        
-        %% Le flux principal
-        subgraph Work_Flow [Flux d'Analyse]
-            direction LR
-            Input[📝 Input Texte] -->|Fetch API| API[🌐 Traitement]
-            API -->|JSON| Result[📊 Résultats]
-        end
-
-        %% Modale flottante
-        Info["ℹ️ Modale 'À Propos'"]
-    end
-
-    %% --- RELATIONS ---
-    User --> Auth_Zone
-    
-    %% Connexion directe vers l'Input (Entrée du Dashboard)
-    Login & Reg --> Input
-    
-    %% Le bouton À propos est accessible depuis l'interface
-    Input -.->|Bouton Info| Info
-
-    %% --- STYLES ---
-    style Auth_Zone fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
-    style Dash_Zone fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style Info fill:#e8f5e9,stroke:#2e7d32,stroke-dasharray: 5 5
+    Info@{ shape: rect}
     style Work_Flow fill:#fff3e0,stroke:#e65100
+    style Info fill:#e8f5e9,stroke:#2e7d32,stroke-dasharray: 5 5,color:#000000
+    style Auth_Zone fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000000
+    style Dash_Zone fill:#FFCDD2,stroke:#7b1fa2,stroke-width:2px,color:#000000
 ```
 
 ## 2. Architecture & Flux
