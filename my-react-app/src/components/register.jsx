@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 
+
 const Register = ({onSwitch}) => {
     const [email,setEmail] = useState("")
     const [username,setUsername] = useState("")

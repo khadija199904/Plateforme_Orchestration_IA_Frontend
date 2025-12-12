@@ -1,184 +1,304 @@
-/* Conteneur principal qui sépare l'écran en deux */
-.analyse-container {
-    display: flex;
-    flex-direction: row;
-    height: 90vh; /* Prend 90% de la hauteur de l'écran */
-    gap: 30px;
-    padding: 30px;
-    background-color: #f4f7f6;
-    box-sizing: border-box;
+/* Layout Principal */
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  overflow: hidden; /* Empêche le scroll global, on scroll dans les panneaux */
 }
 
-/* --- STYLE DU PANNEAU GAUCHE --- */
+/* --- Header --- */
+.dashboard-header {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.header-left h2 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--primary);
+}
+
+.btn-about {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.btn-about:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* --- Main Content Split --- */
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  height: calc(100vh - 70px); /* Hauteur restante */
+}
+
+.panel {
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.panel-header h3 {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.badge {
+  font-size: 0.75rem;
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* --- Left Panel (Input) --- */
 .left-panel {
-    flex: 1; /* Prend 50% de l'espace */
-    display: flex;
-    flex-direction: column;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  flex: 1; /* 50% de l'espace ou un peu moins selon la préférence */
+  max-width: 45%;
 }
 
-.left-panel h2, .right-panel h2 {
-    margin-top: 0;
-    color: #333;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.text-input {
-    flex-grow: 1; /* Remplit tout l'espace vertical disponible */
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none; /* Empêche de redimensionner manuellement */
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    box-sizing: border-box;
+.main-textarea {
+  flex: 1;
+  width: 100%;
+  background-color: #0f172a;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  color: white;
+  font-size: 1rem;
+  resize: none;
+  font-family: inherit;
 }
 
-.analyze-btn {
-    padding: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background 0.3s;
+.main-textarea:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
 }
 
-.analyze-btn:hover {
-    background-color: #0056b3;
+.action-area {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.analyze-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.btn-analyze {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, var(--primary) 0%, #818cf8 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
 }
 
-.alert-error {
-    color: #721c24;
-    background-color: #f8d7da;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
+.btn-analyze:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.6);
 }
 
-/* --- STYLE DU PANNEAU DROITE --- */
+.btn-analyze:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-msg {
+  color: #ef4444;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* --- Right Panel (Results) --- */
 .right-panel {
-    flex: 1; /* Prend l'autre 50% */
-    display: flex;
-    flex-direction: column;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  flex: 1; /* Reste de l'espace */
+  overflow-y: auto; /* Scroll si le résultat est long */
 }
 
-.results-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    gap: 20px;
+.empty-state {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-style: italic;
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
 }
 
-/* Zone du résumé (Grande zone) */
-.resume-box {
-    flex-grow: 2; /* Prend le plus de place possible (2/3) */
-    background-color: #e9ecef;
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 5px solid #28a745; /* Petite barre verte déco */
-    overflow-y: auto; /* Scroll si le texte est trop long */
+.results-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
 }
 
-.resume-box h3 {
-    margin-top: 0;
-    color: #28a745;
+/* Zone 1: Résumé */
+.resume-block {
+  flex: 2; /* Prend plus de place que les métriques */
+  background-color: #273548;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid var(--accent);
 }
 
-.resume-box p {
-    line-height: 1.6;
-    color: #555;
-    white-space: pre-wrap;
+.resume-block h4 {
+  color: var(--accent);
+  margin-bottom: 0.8rem;
 }
 
-/* Zone des métriques (Ligne du bas) */
-.metrics-row {
-    flex-grow: 1; /* Prend moins de place (1/3) */
-    display: flex;
-    gap: 15px;
-    min-height: 120px; /* Hauteur minimale pour que ce soit joli */
+.resume-text {
+  line-height: 1.6;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Zone 2: Métriques (Les 3 blocs sur une ligne) */
+.metrics-grid {
+  display: flex;
+  flex-direction: row; /* Force la ligne */
+  gap: 1rem;
+  justify-content: space-between;
 }
 
 .metric-card {
-    flex: 1; /* Chaque carte prend la même largeur (33%) */
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  flex: 1; /* Largeur égale pour les 3 */
+  background-color: #1e293b;
+  border: 1px solid var(--border-color);
+  padding: 1.2rem;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.metric-card h4 {
-    margin: 0;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 10px;
+.metric-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
-.metric-card .value {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
+.metric-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
 }
 
-/* Couleurs spécifiques pour les petites cartes */
-.metric-card.category { border-top: 4px solid #17a2b8; }
-.metric-card.score    { border-top: 4px solid #ffc107; }
-.metric-card.tone     { border-top: 4px solid #6610f2; }
+/* Couleurs spécifiques pour les cartes */
+.metric-card.category .metric-value { color: var(--accent); }
+.metric-card.score .metric-value { color: #4ade80; font-size: 1.5rem; } /* Vert */
+.metric-card.tone .metric-value { color: #facc15; } /* Jaune */
 
-.placeholder-text, .loader {
-    text-align: center;
-    color: #999;
-    margin-top: 50px;
-}
-
-.bottom-logout {
-  position: fixed; /* Reste fixe par rapport à l'écran */
+/* --- Logout Button Fixe --- */
+.fixed-logout {
+  position: fixed;
   bottom: 20px;
-  right: 20px; /* C'est ici que la magie opère */
+  right: 20px;
   z-index: 100;
 }
 
-.top-controls-right {
-  position: absolute; /* ou 'fixed' si vous voulez qu'il suive le scroll */
-  top: 20px;
-  right: 20px;
-  z-index: 90; /* Juste en dessous de la modale (qui est à 1000) */
+/* Styliser le bouton logout importé s'il n'a pas de style propre */
+.fixed-logout button {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.btn-control:hover {
-  background-color: #f8fafc;
-  transform: translateY(-2px); /* Petit effet de soulèvement */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+.fixed-logout button:hover {
+  background-color: #dc2626;
 }
 
-/* Couleur spécifique pour le bouton À propos (Bleu) */
-.about-trigger {
-  color: #2563eb;
+/* --- Loader --- */
+.loader-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
 }
 
-/* Couleur spécifique pour le bouton Déconnexion (Rouge au survol) */
-.logout-trigger:hover {
-  color: #ef4444;
-  background-color: #fef2f2;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- Modal --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 400px;
+  position: relative;
+  border: 1px solid var(--primary);
+}
+
+.btn-close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
 }
