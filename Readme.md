@@ -109,12 +109,15 @@ graph LR
 
 ## 5. Gestion des Erreurs Frontend
 L'interface gère les codes erreurs renvoyés par le backend :
-   Code   Signification
+```bash
+  Code   Signification
   ------ -----------------------
   401    Non authentifié
   422    Texte vide ou invalide
   500    Erreur interne serveur
   503    Serveur en surcharge
+```
+  
 
 
 ## 6. Structure du projet (Frontend)
