@@ -1,7 +1,7 @@
 # Hybrid-Analyzer Client (Frontend)
 ![alt text](https://img.shields.io/badge/React-18.x-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![alt text](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![alt text](https://img.shields.io/badge/Axios-HTTP-5A29E4?style=for-the-badge)
+![alt text](https://img.shields.io/badge/CSS-3-2965F1?style=for-the-badge&logo=css3&logoColor=white)
 ![alt text](https://img.shields.io/badge/Docker-Component-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 ## À propos
